@@ -20,6 +20,10 @@ def detail(request,id):
 def project_details(request,id):
     if request.method == "GET":
         data = Project.objects.get(pk=id)
+        # context = {
+        # "project": data,
+        # }
+        # return render(request, "blog_index.html", context)
         return HttpResponse(f"Data :- {data.description}")
 
 def project_details_all(request):
