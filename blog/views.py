@@ -1,13 +1,21 @@
+import json
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
 from blog.models import Post,Category
 from blog.serializers import PostSerializer
 
 # Create your views here.
+
+@api_view(['POST'])
+def create_post(request):
+    serializer = PostSerializer(data = request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+        data = serializer.data
+        return Response(data)
 
 @api_view(['GET'])
 def get_all_blogs(request):
