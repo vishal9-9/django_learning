@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from blog.models import Post,Category
+from blog.serializers import PostSerializer
 
 # Create your views here.
 
@@ -15,7 +16,8 @@ def get_all_blogs(request):
         data = []
         if posts:
             for i in posts:
-                data.append(model_to_dict(i,fields=['id','title','body','created_on']))
+                data.append(PostSerializer(i).data)
+                # data.append(model_to_dict(i,fields=['id','title','body','created_on','new_title']))
         return Response(data=data)
         # return JsonResponse({"message":data},safe=False)
 
